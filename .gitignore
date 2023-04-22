@@ -1,1 +1,3 @@
 frontend/my-app/node_modules
+backend/devcamper_api/node_modules
+backend/devcamper_api/config/config.env
