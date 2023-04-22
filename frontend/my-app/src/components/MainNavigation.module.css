@@ -1,0 +1,24 @@
+.nav {
+  justify-content: right;
+  display: flex;
+}
+
+.list {
+  list-style: none;
+  margin: 1rem;
+}
+
+.list li {
+  display: inline;
+  margin: 1rem;
+}
+
+.list a {
+  text-decoration: none;
+  color: blue;
+}
+
+.list a:hover,
+.list a.active {
+  color: violet;
+}
