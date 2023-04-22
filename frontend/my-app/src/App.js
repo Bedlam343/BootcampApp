@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
-import BootcampsPage from "./pages/Bootcamps";
+import BootcampsPage, { loader as bootcampsLoader } from "./pages/Bootcamps";
 import BootcampDetailPage from "./pages/BootcampDetail";
 import LoginPage from "./pages/Login";
 import NewBootcampPage from "./pages/NewBootcamp";
@@ -20,6 +20,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <BootcampsPage />,
+            loader: bootcampsLoader,
           },
           {
             path: ":bootcampId",
