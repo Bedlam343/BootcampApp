@@ -1,0 +1,23 @@
+.outerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.innerContainer {
+  max-width: 35rem;
+  text-align: center;
+}
+
+.image {
+  width: 50%;
+}
+
+.inline {
+  display: inline;
+  margin: 1rem;
+}
+
+.checkboxes {
+  display: inline;
+}
