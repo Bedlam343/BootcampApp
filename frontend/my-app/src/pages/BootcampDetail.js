@@ -36,4 +36,8 @@ export async function loader({ request, params }) {
   });
 }
 
+// export async function action({ params, request }) {
+//   const bootcampId = params.bootcampId;
+// }
+
 export default BootcampDetailPage;

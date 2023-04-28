@@ -1,5 +1,12 @@
 const HomePage = () => {
-  return <h1>HomePage</h1>;
+  console.log("HOMEPAGE RERENDERED");
+
+  return (
+    <h1>
+      <br></br>
+      <br></br>HomePage
+    </h1>
+  );
 };
 
 export default HomePage;

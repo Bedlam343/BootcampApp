@@ -1,21 +1,26 @@
 import { Link } from "react-router-dom";
 
 import classes from "./BootcampsList.module.css";
+import Button from "../util/Button";
 
 const BootcampsList = ({ bootcamps }) => {
   return (
-    <div>
-      <h1>All Upcoming Bootcamps</h1>
-      <ul>
-        {bootcamps.map((bootcamp) => (
-          <li key={bootcamp._id}>
-            <Link to={`/bootcamps/${bootcamp._id}`}>
-              <h2>{bootcamp.name}</h2>
+    <div className={classes.outerContainer}>
+      <div className={classes.innerContainer}>
+        <h1 className={classes.title}>All Upcoming Bootcamps</h1>
+        <ul className={classes.list}>
+          {bootcamps.map((bootcamp) => (
+            <li className={classes.listItem} key={bootcamp._id}>
+              <h3 className={classes.name}>{bootcamp.name}</h3>
               <p>{bootcamp.description}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+              <p>Average Cost: ${bootcamp.averageCost}</p>
+              <Link to={`/bootcamps/${bootcamp._id}`}>
+                <Button>Explore</Button>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

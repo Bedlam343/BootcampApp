@@ -46,7 +46,7 @@ const importData = async () => {
     console.log("Data Imported...".green.inverse);
     process.exit();
   } catch (error) {
-    console.error(err);
+    console.error(error);
   }
 };
 
@@ -62,7 +62,7 @@ const deleteData = async () => {
     console.log("Data Destroyed...".red.inverse);
     process.exit();
   } catch (error) {
-    console.error(err);
+    console.error(error);
   }
 };
 

@@ -5,39 +5,54 @@ import BootcampsPage, { loader as bootcampsLoader } from "./pages/Bootcamps";
 import BootcampDetailPage, {
   loader as bootcampDetailLoader,
 } from "./pages/BootcampDetail";
-import LoginPage from "./pages/Login";
+import LoginPage, { action as authAction } from "./pages/Login";
+import { action as logoutAction } from "./pages/Logout";
 import NewBootcampPage from "./pages/NewBootcamp";
 import BootcampsRootLayout from "./pages/BootcampsRoot";
 
+import AuthContextLayout from "./store/AuthContextLayout";
+
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <RootLayout />,
+    // provide AuthContext to all routes
+    element: <AuthContextLayout />,
     children: [
-      { index: true, element: <HomePage /> },
       {
-        path: "bootcamps",
-        element: <BootcampsRootLayout />,
+        path: "/",
+        element: <RootLayout />,
+        id: "root",
         children: [
+          { index: true, element: <HomePage /> },
           {
-            index: true,
-            element: <BootcampsPage />,
-            loader: bootcampsLoader,
+            path: "bootcamps",
+            element: <BootcampsRootLayout />,
+            children: [
+              {
+                index: true,
+                element: <BootcampsPage />,
+                loader: bootcampsLoader,
+              },
+              {
+                path: ":bootcampId",
+                element: <BootcampDetailPage />,
+                loader: bootcampDetailLoader,
+              },
+              {
+                path: "new",
+                element: <NewBootcampPage />,
+              },
+            ],
           },
           {
-            path: ":bootcampId",
-            element: <BootcampDetailPage />,
-            loader: bootcampDetailLoader,
+            path: "login",
+            element: <LoginPage />,
+            action: authAction,
           },
           {
-            path: "new",
-            element: <NewBootcampPage />,
+            path: "logout",
+            action: logoutAction,
           },
         ],
-      },
-      {
-        path: "login",
-        element: <LoginPage />,
       },
     ],
   },

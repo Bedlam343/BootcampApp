@@ -1,4 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
 .outerContainer {
+  margin-top: 1.5rem;
+  position: relative;
+  top: 4rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -7,6 +12,12 @@
 .innerContainer {
   max-width: 35rem;
   text-align: center;
+  justify-content: center;
+}
+
+.innerContainer Button {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .image {

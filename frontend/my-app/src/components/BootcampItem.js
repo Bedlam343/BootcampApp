@@ -1,6 +1,18 @@
+import { useSubmit } from "react-router-dom";
+import Button from "../util/Button";
+
 import classes from "./BootcampItem.module.css";
 
 const BootcampItem = ({ bootcamp }) => {
+  const submit = useSubmit();
+
+  const startDeleteHandler = () => {
+    const del = window.confirm("Are you sure?");
+    if (del) {
+      submit(null, { method: "delete", action: "../pages/BootcampDetail" });
+    }
+  };
+
   const additionalFeatures =
     bootcamp.housing ||
     bootcamp.jobAssistance ||
@@ -10,6 +22,8 @@ const BootcampItem = ({ bootcamp }) => {
   return (
     <div className={classes.outerContainer}>
       <div className={classes.innerContainer}>
+        <Button>Edit</Button>
+        <Button onClick={startDeleteHandler}>Delete</Button>
         <h1>{bootcamp.name}</h1>
         <img
           className={classes.image}
@@ -18,14 +32,16 @@ const BootcampItem = ({ bootcamp }) => {
         />
         <p>{bootcamp.description}</p>
         <p>
-          <br></br>Careers:{" "}
+          <br></br>Careers:
         </p>
         {bootcamp.careers.map((career) => (
-          <p className={classes.inline}>{career}</p>
+          <p key={career} className={classes.inline}>
+            {career}
+          </p>
         ))}
         {additionalFeatures && (
           <p>
-            <br></br>Additional Features:{" "}
+            <br></br>Additional Features:
           </p>
         )}
         {bootcamp.housing && <p className={classes.inline}>Housing &#x2713;</p>}{" "}
@@ -39,11 +55,14 @@ const BootcampItem = ({ bootcamp }) => {
           <p className={classes.inline}>Accept GI &#x2713;</p>
         )}
         <p>
-          <br></br>For more information visit: {bootcamp.website}
+          <br></br>For more information visit {bootcamp.website}
         </p>
         <p>
-          <br></br>Other Ways to contact us:{" "}
+          <br></br>Other ways to contact us:
         </p>
+        <p>{bootcamp.phone}</p>
+        <p>{bootcamp.email}</p>
+        <p>{bootcamp.location.formattedAddress}</p>
       </div>
     </div>
   );
