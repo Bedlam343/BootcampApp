@@ -46,30 +46,3 @@ export function loader() {
     bootcamps: loadBootcamps(),
   });
 }
-
-// delete a bootcamp
-export async function action({ request }) {
-  const formData = await request.formData();
-  const bootcampId = formData.get("bootcampId");
-
-  const userToken = localStorage.getItem("token");
-  const authorization = "Bearer " + userToken;
-
-  const response = await fetch(
-    "http://localhost:5000/api/v1/bootcamps/" + bootcampId,
-    {
-      method: "delete",
-      headers: {
-        authorization: authorization,
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw json({ message: "Could not delete bootcmap" }, { status: 500 });
-  }
-
-  bootcampContext.removeBootcamp(bootcampId);
-
-  return redirect("/bootcamps");
-}
