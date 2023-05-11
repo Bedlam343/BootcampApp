@@ -1,17 +1,20 @@
 import { useSubmit } from "react-router-dom";
 import Button from "../util/Button";
+import AuthContext from "../store/auth-context";
 
 import classes from "./BootcampItem.module.css";
+import { useContext } from "react";
+import BootcampContext from "../store/bootcamp-context";
 
-const BootcampItem = ({ bootcamp }) => {
+const BootcampItem = ({ bootcampId }) => {
+  const authContext = useContext(AuthContext);
+  const bootcampContext = useContext(BootcampContext);
+  const bootcamp = bootcampContext.bootcamps.find(
+    (bootcamp) => bootcamp._id === bootcampId
+  );
   const submit = useSubmit();
 
-  const startDeleteHandler = () => {
-    const del = window.confirm("Are you sure?");
-    if (del) {
-      submit(null, { method: "delete", action: "../pages/BootcampDetail" });
-    }
-  };
+  const isAdmin = authContext.userRole === "admin";
 
   const additionalFeatures =
     bootcamp.housing ||
@@ -19,50 +22,88 @@ const BootcampItem = ({ bootcamp }) => {
     bootcamp.jobGuarantee ||
     bootcamp.acceptGi;
 
+  const deleteBootcampHandler = (bootcampId) => {
+    const del = window.confirm("Are you sure?");
+    if (!del) {
+      return;
+    }
+    let formData = new FormData();
+    formData.append("bootcampId", bootcampId);
+    submit(formData, { method: "post" });
+  };
+
   return (
     <div className={classes.outerContainer}>
       <div className={classes.innerContainer}>
-        <Button>Edit</Button>
-        <Button onClick={startDeleteHandler}>Delete</Button>
-        <h1>{bootcamp.name}</h1>
-        <img
-          className={classes.image}
-          src="../src/defaultImage.png"
-          alt={bootcamp.name}
-        />
-        <p>{bootcamp.description}</p>
-        <p>
-          <br></br>Careers:
-        </p>
-        {bootcamp.careers.map((career) => (
-          <p key={career} className={classes.inline}>
-            {career}
-          </p>
-        ))}
-        {additionalFeatures && (
+        <div className={classes.buttons}>
+          {isAdmin && <Button>Edit</Button>}
+          {isAdmin && (
+            <Button onClick={() => deleteBootcampHandler(bootcamp._id)}>
+              Delete
+            </Button>
+          )}
+        </div>
+        <div className={classes.heading}>
+          <h1>{bootcamp.name}</h1>
           <p>
-            <br></br>Additional Features:
+            ~ Average Cost: <span>$</span>
+            {bootcamp.averageCost}
           </p>
+        </div>
+        <p>{bootcamp.description}</p>
+        <section>
+          <h3>Careers:</h3>
+          {bootcamp.careers.map((career) => (
+            <p key={career}>{career}</p>
+          ))}
+        </section>
+
+        {additionalFeatures && (
+          <section>
+            <h3>Additional Features:</h3>
+            {bootcamp.housing && (
+              <p>
+                Housing <span>&#x2713;</span>
+              </p>
+            )}
+            {bootcamp.jobAssistance && (
+              <p>
+                Job Assistance <span>&#x2713;</span>
+              </p>
+            )}
+            {bootcamp.jobGuarantee && (
+              <p>
+                Job Guarantee <span>&#x2713;</span>
+              </p>
+            )}
+            {bootcamp.acceptGi && (
+              <p>
+                Accept GI <span>&#x2713;</span>
+              </p>
+            )}
+          </section>
         )}
-        {bootcamp.housing && <p className={classes.inline}>Housing &#x2713;</p>}{" "}
-        {bootcamp.jobAssistance && (
-          <p className={classes.inline}>Job Assistance &#x2713;</p>
-        )}
-        {bootcamp.jobGuarantee && (
-          <p className={classes.inline}>Job Guarantee &#x2713;</p>
-        )}
-        {bootcamp.acceptGi && (
-          <p className={classes.inline}>Accept GI &#x2713;</p>
-        )}
-        <p>
-          <br></br>For more information visit {bootcamp.website}
+
+        <br></br>
+        <br></br>
+        <p className={classes.website}>
+          For more information visit:&nbsp;&nbsp;
+          <span>{bootcamp.website}</span>
         </p>
-        <p>
-          <br></br>Other ways to contact us:
-        </p>
-        <p>{bootcamp.phone}</p>
-        <p>{bootcamp.email}</p>
-        <p>{bootcamp.location.formattedAddress}</p>
+
+        <section>
+          <h3>Other ways to contact us:</h3>
+          <p>{bootcamp.phone}</p>
+          <p>{bootcamp.email}</p>
+          <p>{bootcamp.location.formattedAddress}</p>
+        </section>
+
+        <div className={classes.courses}>
+          <Button>Courses</Button>
+          {bootcamp.courses.map((course) => (
+            <li>{course._id}</li>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,67 @@
+/* Style for the container */
 .container {
+  background: #272727;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Style for the form */
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+.form h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #f6f4e6;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.inputs label {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #f6f4e6;
+}
+
+.inputs input {
+  width: 80%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.inputs input:focus {
+  outline: none;
+  border-color: #0064e6;
+}
+
+.loginError {
+  color: red;
+  margin-top: 1rem;
+}
+
+.container p {
+  color: #f6f4e6;
+}
+
+/* .container {
   background: #272727;
   text-align: center;
   font-family: "Montserrat", sans-serif;
@@ -7,7 +70,6 @@
   display: block;
   height: 100%;
   width: 100%;
-  text-align: center;
 }
 
 .form {
@@ -18,7 +80,8 @@
   justify-content: center;
 }
 
-h1 {
+h1,
+p {
   color: #f6f4e6;
 }
 
@@ -28,7 +91,7 @@ h1 {
   text-align: left;
 }
 
-input {
+.form input {
   border: none;
   border-bottom: 2.5px solid #f6f4e6;
   outline: none;
@@ -50,3 +113,7 @@ input:focus {
 .form Button {
   margin-top: 2rem;
 }
+
+.loginError {
+  color: red;
+} */

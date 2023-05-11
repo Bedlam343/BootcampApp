@@ -1,43 +1,48 @@
-import { Suspense } from "react";
-import { Await, useLoaderData, json, defer } from "react-router-dom";
+import { Suspense, useContext } from "react";
+import { Await, useLoaderData, json, defer, redirect } from "react-router-dom";
 import BootcampItem from "../components/BootcampItem";
+import BootcampContext from "../store/bootcamp-context";
+
+let bootcampContext;
 
 const BootcampDetailPage = () => {
-  const { bootcamp } = useLoaderData();
+  const bootcampId = useLoaderData();
+  bootcampContext = useContext(BootcampContext);
 
-  return (
-    <Suspense fallback={<p style={{ textlign: "center" }}>Loading...</p>}>
-      <Await resolve={bootcamp}>
-        {(loadedBootcamp) => <BootcampItem bootcamp={loadedBootcamp} />}
-      </Await>
-    </Suspense>
-  );
+  return <BootcampItem bootcampId={bootcampId} />;
 };
 
-// fetch bootcamp with bootcampId
-async function loadBootcamp(bootcampId) {
+// get id of bootcamp from url
+export function loader({ params }) {
+  const bootcampId = params.bootcampId;
+  return bootcampId;
+}
+
+// delete a bootcamp
+export async function action({ request }) {
+  const formData = await request.formData();
+  const bootcampId = formData.get("bootcampId");
+
+  const userToken = localStorage.getItem("token");
+  const authorization = "Bearer " + userToken;
+
   const response = await fetch(
-    "http://localhost:5000/api/v1/bootcamps/" + bootcampId
+    "http://localhost:5000/api/v1/bootcamps/" + bootcampId,
+    {
+      method: "delete",
+      headers: {
+        authorization: authorization,
+      },
+    }
   );
 
   if (!response.ok) {
-    throw json({ message: "Could not fetch event..." }, { status: 500 });
-  } else {
-    const responseData = await response.json();
-    return responseData.data;
+    throw json({ message: "Could not delete bootcmap" }, { status: 500 });
   }
+
+  bootcampContext.removeBootcamp(bootcampId);
+
+  return redirect("/bootcamps");
 }
-
-export async function loader({ request, params }) {
-  const bootcampId = params.bootcampId;
-
-  return defer({
-    bootcamp: await loadBootcamp(bootcampId),
-  });
-}
-
-// export async function action({ params, request }) {
-//   const bootcampId = params.bootcampId;
-// }
 
 export default BootcampDetailPage;

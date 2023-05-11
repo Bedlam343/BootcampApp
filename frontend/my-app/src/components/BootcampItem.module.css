@@ -1,15 +1,107 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
 
 .outerContainer {
-  margin-top: 1.5rem;
   position: relative;
-  top: 4rem;
-  width: 100%;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+.innerContainer {
+  width: 800px;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+  margin-top: 2rem;
+}
+
+.buttons {
   display: flex;
   justify-content: center;
 }
 
+.buttons Button {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.heading {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+}
+
+.heading h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+  text-decoration: underline #0064e6;
+}
+
+.heading p {
+  margin-top: 2rem;
+  bottom: 0;
+  font-size: 14px;
+}
+
+.heading p span {
+  color: #0064e6;
+  font-weight: 600;
+}
+
+.innerContainer section {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.innerContainer section h3 {
+  width: 100%;
+  margin-bottom: 0rem;
+  /* flex-basis: 100%; */
+  text-decoration: underline #0064e6;
+}
+
+.innerContainer section p {
+  font-weight: 500;
+  margin-bottom: 0rem;
+}
+
+.innerContainer section p span {
+  color: #0064e6;
+  font-weight: 1000;
+}
+
+.website {
+  font-weight: 500;
+}
+
+.website span {
+  text-decoration: underline #0064e6;
+}
+
+.courses {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/*.outerContainer {
+  background-color: #272727;
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  top: 4rem;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
 .innerContainer {
+  display: inline-block;
   max-width: 35rem;
   text-align: center;
   justify-content: center;
@@ -31,4 +123,4 @@
 
 .checkboxes {
   display: inline;
-}
+}*/

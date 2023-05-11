@@ -1,0 +1,65 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #f6f4e6;
+}
+
+.formContainer {
+  width: 500px;
+  background-color: #f6f4e6;
+  padding: 2rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: block;
+}
+
+.field,
+.checkboxField {
+  margin-bottom: 1rem;
+}
+
+.field label,
+.checkboxField label {
+  font-weight: bold;
+  color: #272727;
+}
+
+.field input {
+  outline: none;
+  width: 97%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.field input:focus {
+  border: 1px solid #0064e6;
+}
+
+.checkboxField {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkboxField input {
+  width: 80%;
+  margin-top: -1rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: -1rem;
+}

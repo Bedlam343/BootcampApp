@@ -17,6 +17,7 @@ body {
   /* border-bottom: 5px groove #fddb3a; */
   justify-content: center;
   /* border-bottom: 5px solid grey; */
+  z-index: 100;
 }
 
 .title {
@@ -26,7 +27,7 @@ body {
 }
 
 .nav {
-  background: grey;
+  background: #0064e6;
   width: 100%;
   justify-content: right;
   display: flex;
@@ -45,10 +46,24 @@ body {
 }
 
 .nav a:hover {
-  color: #fddb3a;
+  color: #272727;
 }
 
-button {
+.nav select {
+  cursor: pointer;
+  background: #0064e6;
+  border: none;
+  width: auto;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  color: #f6f4e6;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 1.6rem;
+}
+
+.nav button {
   all: unset;
   text-transform: uppercase;
   font-size: 12px;
@@ -58,6 +73,6 @@ button {
   font-weight: 500;
 }
 
-button:hover {
-  color: #fddb3a;
+.active {
+  color: #4d96f6;
 }

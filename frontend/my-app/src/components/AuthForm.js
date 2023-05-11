@@ -1,9 +1,11 @@
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
 import Button from "../util/Button";
 
 const AuthForm = () => {
+  const actionData = useActionData();
+
   return (
     <div className={classes.container}>
       <Form method="post" className={classes.form}>
@@ -19,7 +21,11 @@ const AuthForm = () => {
         </div>
         <br></br>
         <Button type="submit">Sign In</Button>
+        {actionData && actionData.error && (
+          <p className={classes.loginError}>{actionData.error + "!"}</p>
+        )}
       </Form>
+      <p>Forgot Password?</p>
     </div>
   );
 };

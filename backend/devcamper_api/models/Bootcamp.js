@@ -75,6 +75,7 @@ const BootcampSchema = new mongoose.Schema(
         "Other",
       ],
     },
+    photo: String,
     averageRating: {
       type: Number,
       min: [1, "Rating must be at least 1"],

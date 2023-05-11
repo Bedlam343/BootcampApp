@@ -1,5 +1,7 @@
+import BootcampForm from "../components/BootcampForm";
+
 const EditBootcampPage = () => {
-  return <h1>EditBootcampPage</h1>;
+  return <BootcampForm />;
 };
 
 export default EditBootcampPage;
