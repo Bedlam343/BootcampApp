@@ -25,7 +25,7 @@ const CourseSchema = new mongoose.Schema({
     // has to be one of these values
     enum: ["beginner", "intermediate", "advanced"],
   },
-  scholarshipAvailable: {
+  scholarshipsAvailable: {
     type: Boolean,
     default: false,
   },

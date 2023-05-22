@@ -1,0 +1,26 @@
+.courseItem {
+  list-style-type: none;
+  border: 2px solid #0064e6;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.courseItem:hover {
+  border: 2px solid #5fa3fd;
+  cursor: pointer;
+}
+
+.courseItem span {
+  color: #5fa3fd;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons Button {
+  margin: 1rem;
+  background: #0064e6;
+}

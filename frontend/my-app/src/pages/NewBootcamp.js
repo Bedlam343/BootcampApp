@@ -7,7 +7,9 @@ const NewBootcampPage = () => {
 
 export default NewBootcampPage;
 
+// add new bootcamp and its courses to the database
 export async function action({ request }) {
+  // add bootcamp
   const formData = await request.formData();
   const bootcampData = {
     name: formData.get("name"),
@@ -21,13 +23,15 @@ export async function action({ request }) {
     jobAssistance: formData.get("jobAssitance") === "on",
     jobGuarantee: formData.get("jobGuarantee") === "on",
     acceptGi: formData.get("acceptGi") === "on",
-    photo: formData.get("photo"),
   };
 
-  const response = await fetch("http://localhost:5000/api/v1/bootcamps", {
+  const token = localStorage.getItem("token");
+  const authorization = `Bearer ${token}`;
+  let response = await fetch("http://localhost:5000/api/v1/bootcamps", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: authorization,
     },
     body: JSON.stringify(bootcampData),
   });
@@ -40,5 +44,5 @@ export async function action({ request }) {
     return response;
   }
 
-  redirect("/bootcamps");
+  return redirect("/bootcamps");
 }

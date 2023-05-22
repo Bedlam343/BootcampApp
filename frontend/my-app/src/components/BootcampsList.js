@@ -1,14 +1,9 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import classes from "./BootcampsList.module.css";
 import Button from "../util/Button";
-import BootcampContext from "../store/bootcamp-context";
 
-const BootcampsList = () => {
-  const bootcampContext = useContext(BootcampContext);
-  const bootcamps = bootcampContext.bootcamps;
-
+const BootcampsList = ({ bootcamps }) => {
   return (
     <div className={classes.outerContainer}>
       <div className={classes.innerContainer}>

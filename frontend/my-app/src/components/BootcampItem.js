@@ -1,18 +1,15 @@
-import { useSubmit } from "react-router-dom";
+import { useNavigate, useSubmit } from "react-router-dom";
 import Button from "../util/Button";
 import AuthContext from "../store/auth-context";
 
 import classes from "./BootcampItem.module.css";
 import { useContext } from "react";
-import BootcampContext from "../store/bootcamp-context";
+import CourseItemList from "./CourseItemList";
 
-const BootcampItem = ({ bootcampId }) => {
+const BootcampItem = ({ bootcamp, courses }) => {
   const authContext = useContext(AuthContext);
-  const bootcampContext = useContext(BootcampContext);
-  const bootcamp = bootcampContext.bootcamps.find(
-    (bootcamp) => bootcamp._id === bootcampId
-  );
   const submit = useSubmit();
+  const navigate = useNavigate();
 
   const isAdmin = authContext.userRole === "admin";
 
@@ -27,16 +24,20 @@ const BootcampItem = ({ bootcampId }) => {
     if (!del) {
       return;
     }
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("bootcampId", bootcampId);
     submit(formData, { method: "post" });
   };
 
+  const editBootcampHandler = () => {
+    navigate(`edit`);
+  };
+
   return (
     <div className={classes.outerContainer}>
-      <div className={classes.innerContainer}>
+      <div className={classes.bootcampContainer}>
         <div className={classes.buttons}>
-          {isAdmin && <Button>Edit</Button>}
+          {isAdmin && <Button onClick={editBootcampHandler}>Edit</Button>}
           {isAdmin && (
             <Button onClick={() => deleteBootcampHandler(bootcamp._id)}>
               Delete
@@ -45,10 +46,7 @@ const BootcampItem = ({ bootcampId }) => {
         </div>
         <div className={classes.heading}>
           <h1>{bootcamp.name}</h1>
-          <p>
-            ~ Average Cost: <span>$</span>
-            {bootcamp.averageCost}
-          </p>
+          <p>Average Cost: ${bootcamp.averageCost}</p>
         </div>
         <p>{bootcamp.description}</p>
         <section>
@@ -97,14 +95,8 @@ const BootcampItem = ({ bootcampId }) => {
           <p>{bootcamp.email}</p>
           <p>{bootcamp.location.formattedAddress}</p>
         </section>
-
-        <div className={classes.courses}>
-          <Button>Courses</Button>
-          {bootcamp.courses.map((course) => (
-            <li>{course._id}</li>
-          ))}
-        </div>
       </div>
+      <CourseItemList courses={courses} editable={false} />
     </div>
   );
 };

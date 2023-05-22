@@ -1,22 +1,25 @@
-import { Suspense, useContext } from "react";
-import { Await, useLoaderData, json, defer, redirect } from "react-router-dom";
+import { Suspense } from "react";
+import { Await, json, redirect, useRouteLoaderData } from "react-router-dom";
 import BootcampItem from "../components/BootcampItem";
-import BootcampContext from "../store/bootcamp-context";
-
-let bootcampContext;
 
 const BootcampDetailPage = () => {
-  const bootcampId = useLoaderData();
-  bootcampContext = useContext(BootcampContext);
+  const bootcamp = useRouteLoaderData("bootcampDetail");
 
-  return <BootcampItem bootcampId={bootcampId} />;
+  return (
+    <>
+      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+        <Await resolve={bootcamp}>
+          {(loadedBootcamp) => (
+            <BootcampItem
+              bootcamp={loadedBootcamp.bootcamp}
+              courses={loadedBootcamp.courses}
+            />
+          )}
+        </Await>
+      </Suspense>
+    </>
+  );
 };
-
-// get id of bootcamp from url
-export function loader({ params }) {
-  const bootcampId = params.bootcampId;
-  return bootcampId;
-}
 
 // delete a bootcamp
 export async function action({ request }) {
@@ -39,8 +42,6 @@ export async function action({ request }) {
   if (!response.ok) {
     throw json({ message: "Could not delete bootcmap" }, { status: 500 });
   }
-
-  bootcampContext.removeBootcamp(bootcampId);
 
   return redirect("/bootcamps");
 }

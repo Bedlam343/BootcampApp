@@ -4,20 +4,24 @@
   align-items: center;
   margin-top: 4rem;
   font-family: "Montserrat", sans-serif;
+  background-color: rgb(225, 224, 224);
+  font-weight: 500;
 }
 
 .container h2 {
   font-size: 1.8rem;
-  margin-bottom: 2rem;
-  color: #f6f4e6;
+  margin-bottom: 1rem;
+  color: #272727;
 }
 
 .formContainer {
-  width: 500px;
-  background-color: #f6f4e6;
-  padding: 2rem;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  margin: 1rem 0rem;
+  box-shadow: 0 30px 40px rgba(168, 168, 168, 0.715);
   border-radius: 5px;
-  margin-bottom: 2rem;
+  width: 60%;
+  color: #f7f7f7;
 }
 
 .form {
@@ -31,7 +35,6 @@
 
 .field label,
 .checkboxField label {
-  font-weight: bold;
   color: #272727;
 }
 
@@ -54,12 +57,20 @@
 }
 
 .checkboxField input {
-  width: 80%;
+  width: 100%;
   margin-top: -1rem;
 }
 
-.buttons {
+.formButtons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.formButtons Button {
+  width: 6rem;
+}
+
+.courseButton {
+  text-align: center;
   margin-bottom: -1rem;
 }

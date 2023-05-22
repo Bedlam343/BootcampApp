@@ -1,23 +1,74 @@
+import { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 
 import classes from "./BootcampForm.module.css";
 import Button from "../util/Button";
+import CourseItemList from "./CourseItemList";
+import CourseForm from "./CourseForm";
 
-const BootcampForm = (bootcamp) => {
+// SAVE NEW BOOTCAMP TO THE DATABASE
+
+const BootcampForm = ({ bootcamp, courses }) => {
+  const [isAddingCourse, setIsAddingCourse] = useState(false);
+  const [coursesList, setCoursesList] = useState(courses ? courses : []);
   const navigate = useNavigate();
 
+  const title = bootcamp ? "Edit Bootcamp" : "Create New Bootcamp";
+
   let careers;
-  if (bootcamp.careers) {
+  let address;
+  if (bootcamp) {
     careers = bootcamp.careers.join(", ");
+    address = bootcamp.location.formattedAddress;
+  } else {
+    bootcamp = {};
+  }
+
+  const saveHandler = () => {
+    
   }
 
   const cancelHandler = () => {
     navigate("..");
   };
 
+  const newCourseHandler = () => {
+    setIsAddingCourse(true);
+  };
+
+  const addNewCourseHandler = (newCourse) => {
+    setCoursesList((prevCoursesList) => [newCourse, ...prevCoursesList]);
+    setIsAddingCourse(false);
+  };
+
+  const updateCourseHandler = (updatedCourse) => {
+    setCoursesList((prevCoursesList) => {
+      let newCoursesList = [];
+      for (let course of prevCoursesList) {
+        if (course._id === updatedCourse._id) {
+          newCoursesList.push(updatedCourse);
+        }
+        else {
+          newCoursesList.push(course);
+        }
+      }
+      return newCoursesList;
+    });
+  }
+
+  const discardNewCourseHandler = () => {
+    setIsAddingCourse(false);
+  };
+
+  const removeCourseHandler = (courseId) => {
+    setCoursesList((prevCoursesList) =>
+      prevCoursesList.filter((course) => course._id !== courseId)
+    );
+  };
+
   return (
     <div className={classes.container}>
-      <h2>Create New Bootcamp</h2>
+      <h2>{title}</h2>
 
       <div className={classes.formContainer}>
         <Form method="POST" className={classes.form}>
@@ -27,7 +78,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="name"
               name="name"
-              value={bootcamp.name}
+              defaultValue={bootcamp.name}
               required
             ></input>
           </div>
@@ -37,7 +88,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="description"
               name="description"
-              value={bootcamp.description}
+              defaultValue={bootcamp.description}
               required
             ></input>
           </div>
@@ -47,7 +98,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="website"
               name="website"
-              value={bootcamp.website}
+              defaultValue={bootcamp.website}
               required
             ></input>
           </div>
@@ -57,7 +108,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="phone"
               name="phone"
-              value={bootcamp.phone}
+              defaultValue={bootcamp.phone}
               required
             ></input>
           </div>
@@ -67,7 +118,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="email"
               name="email"
-              value={bootcamp.email}
+              defaultValue={bootcamp.email}
               required
             ></input>
           </div>
@@ -77,7 +128,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="address"
               name="address"
-              value={bootcamp.address}
+              defaultValue={address}
               required
             ></input>
           </div>
@@ -87,7 +138,7 @@ const BootcampForm = (bootcamp) => {
               type="text"
               id="careers"
               name="careers"
-              value={careers}
+              defaultValue={careers}
               required
             ></input>
           </div>
@@ -128,22 +179,37 @@ const BootcampForm = (bootcamp) => {
               defaultChecked={bootcamp.acceptGi ? "checked" : ""}
             ></input>
           </div>
-          <div className={classes.field}>
-            <label htmlFor="photo">Photo:</label>
-            <input
-              type="text"
-              id="photo"
-              name="photo"
-              value={bootcamp.photo}
-              required
-            ></input>
+          <div className={classes.formButtons}>
+            <Button type="button" onClick={cancelHandler}>
+              Cancel
+            </Button>
+            <Button type="button" onClick={saveHandler}>Save</Button>
           </div>
-          <div className={classes.buttons}>
-            <Button onClick={cancelHandler}>Cancel</Button>
-            <Button>Save</Button>
+          <br></br>
+          <div className={classes.courseButton}>
+            <Button
+              type="button"
+              disabled={isAddingCourse}
+              onClick={newCourseHandler}
+            >
+              New Course &nbsp;+
+            </Button>
           </div>
+          {isAddingCourse && (
+            <CourseForm
+              new={true}
+              onAdd={addNewCourseHandler}
+              onDiscard={discardNewCourseHandler}
+            />
+          )}
         </Form>
       </div>
+      <CourseItemList
+        courses={coursesList}
+        onUpdate={updateCourseHandler}
+        onRemove={removeCourseHandler}
+        editable={true}
+      />
     </div>
   );
 };

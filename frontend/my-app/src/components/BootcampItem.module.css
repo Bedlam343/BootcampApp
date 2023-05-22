@@ -4,16 +4,22 @@
   position: relative;
   margin-top: 4rem;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
+  background-color: rgb(225, 224, 224);
 }
 
-.innerContainer {
-  width: 800px;
+.bootcampContainer {
+  /* width: 800px; */
   padding: 1rem;
   background-color: #f7f7f7;
+  margin: 1rem 0rem;
+  box-shadow: 0 30px 40px rgba(168, 168, 168, 0.715);
   border-radius: 5px;
-  margin-top: 2rem;
+  width: 75%;
+  text-align: center;
 }
 
 .buttons {
@@ -27,7 +33,6 @@
 }
 
 .heading {
-  display: flex;
   justify-content: left;
   flex-direction: row;
 }
@@ -36,7 +41,7 @@
   font-size: 1.8rem;
   margin-bottom: 1rem;
   margin-right: 1rem;
-  text-decoration: underline #0064e6;
+  text-decoration: underline #5fa3fd;
 }
 
 .heading p {
@@ -46,32 +51,32 @@
 }
 
 .heading p span {
-  color: #0064e6;
+  color: #5fa3fd;
   font-weight: 600;
 }
 
-.innerContainer section {
+.bootcampContainer section {
   margin-top: 2rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 
-.innerContainer section h3 {
+.bootcampContainer section h3 {
   width: 100%;
   margin-bottom: 0rem;
   /* flex-basis: 100%; */
-  text-decoration: underline #0064e6;
+  /* text-decoration: underline #0064e6; */
 }
 
-.innerContainer section p {
+.bootcampContainer section p {
   font-weight: 500;
   margin-bottom: 0rem;
 }
 
-.innerContainer section p span {
-  color: #0064e6;
+.bootcampContainer section p span {
+  color: #5fa3fd;
   font-weight: 1000;
 }
 
@@ -80,47 +85,46 @@
 }
 
 .website span {
-  text-decoration: underline #0064e6;
+  text-decoration: underline #5fa3fd;
+}
+
+.website span:hover {
+  cursor: pointer;
 }
 
 .courses {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-/*.outerContainer {
+  padding: 1rem;
   background-color: #272727;
-  position: absolute;
-  display: block;
-  height: 100%;
-  width: 100%;
-  top: 4rem;
-  width: 100%;
-  justify-content: center;
+  margin: 1rem 0rem;
+  box-shadow: 0 30px 40px rgba(168, 168, 168, 0.715);
+  border-radius: 5px;
+  width: 75%;
+  text-align: center;
+  color: #f7f7f7;
+}
+
+.courses h2 {
   text-align: center;
 }
 
-.innerContainer {
-  display: inline-block;
-  max-width: 35rem;
-  text-align: center;
-  justify-content: center;
+.courseItem {
+  list-style-type: none;
+  border: 2px solid #0064e6;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding: 1rem;
 }
 
-.innerContainer Button {
-  margin-left: 1rem;
-  margin-right: 1rem;
+.courseItem:hover {
+  border: 2px solid #5fa3fd;
+  cursor: pointer;
 }
 
-.image {
-  width: 50%;
+.courseItem section {
+  display: flex;
+  justify-content: space-around;
 }
 
-.inline {
-  display: inline;
-  margin: 1rem;
+.courseItem span {
+  color: #5fa3fd;
 }
-
-.checkboxes {
-  display: inline;
-}*/

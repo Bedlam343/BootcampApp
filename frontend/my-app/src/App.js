@@ -3,7 +3,6 @@ import RootLayout from "./pages/Root";
 import HomePage from "./pages/Home";
 import BootcampsPage, { loader as bootcampsLoader } from "./pages/Bootcamps";
 import BootcampDetailPage, {
-  loader as bootcampIdLoader,
   action as deleteBootcampAction,
 } from "./pages/BootcampDetail";
 import LoginPage, { action as authAction } from "./pages/Login";
@@ -12,9 +11,10 @@ import NewBootcampPage, {
   action as newBootcampAction,
 } from "./pages/NewBootcamp";
 import BootcampsRootLayout from "./pages/BootcampsRoot";
-
+import BootcampDetailLayout, {
+  loader as bootcampLoader,
+} from "./pages/BootcampDetailRoot";
 import AuthContextLayout from "./store/AuthContextLayout";
-import BootcampContextLayout from "./store/BootcampContextLayout";
 import EditBootcampPage from "./pages/EditBootcamp";
 
 const router = createBrowserRouter([
@@ -29,34 +29,35 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePage /> },
           {
-            // provide bootcamp context
-            element: <BootcampContextLayout />,
+            path: "bootcamps",
+            element: <BootcampsRootLayout />,
             children: [
               {
-                path: "bootcamps",
-                element: <BootcampsRootLayout />,
+                index: true,
+                element: <BootcampsPage />,
+                loader: bootcampsLoader,
+              },
+              {
+                path: ":bootcampId",
+                element: <BootcampDetailLayout />,
+                id: "bootcampDetail",
+                loader: bootcampLoader,
                 children: [
                   {
                     index: true,
-                    element: <BootcampsPage />,
-                    loader: bootcampsLoader,
-                  },
-                  {
-                    path: ":bootcampId",
                     element: <BootcampDetailPage />,
-                    loader: bootcampIdLoader,
                     action: deleteBootcampAction,
                   },
                   {
-                    path: ":bootcampId/edit",
+                    path: "edit",
                     element: <EditBootcampPage />,
                   },
-                  {
-                    path: "new",
-                    element: <NewBootcampPage />,
-                    action: newBootcampAction,
-                  },
                 ],
+              },
+              {
+                path: "new",
+                element: <NewBootcampPage />,
+                action: newBootcampAction,
               },
             ],
           },

@@ -13,11 +13,12 @@ body {
   width: 100%;
   font-family: "Montserrat", sans-serif;
   height: 4rem;
-  background: #272727;
+  background: rgb(44, 44, 44);
   /* border-bottom: 5px groove #fddb3a; */
   justify-content: center;
   /* border-bottom: 5px solid grey; */
   z-index: 100;
+  box-shadow: 0 10px 10px rgba(127, 127, 127, 0.715);
 }
 
 .title {
@@ -27,7 +28,7 @@ body {
 }
 
 .nav {
-  background: #0064e6;
+  background: rgb(44, 44, 44);
   width: 100%;
   justify-content: right;
   display: flex;
@@ -51,7 +52,7 @@ body {
 
 .nav select {
   cursor: pointer;
-  background: #0064e6;
+  background: rgb(44, 44, 44);
   border: none;
   width: auto;
   text-align: center;
@@ -61,6 +62,11 @@ body {
   text-transform: uppercase;
   font-weight: 500;
   margin: 1.6rem;
+}
+
+.nav select option {
+  background-color: red;
+  height: 3rem;
 }
 
 .nav button {

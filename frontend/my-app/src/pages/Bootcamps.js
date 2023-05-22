@@ -1,25 +1,12 @@
-import { Suspense, useContext } from "react";
-import { Await, defer, json, redirect, useLoaderData } from "react-router-dom";
+import { Suspense } from "react";
+import { Await, defer, json, useLoaderData } from "react-router-dom";
 import BootcampsList from "../components/BootcampsList";
-import BootcampContext from "../store/bootcamp-context";
-
-let bootcampContext;
 
 const BootcampsPage = () => {
   // useLoaderData() gets access to the "closest" loader data
-  const { bootcamps } = useLoaderData();
-  bootcampContext = useContext(BootcampContext);
+  const bootcamps = useLoaderData();
 
-  return (
-    // show fallback while data is arriving
-    <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-      {/*show page before bootcamps are even resolved*/}
-      <Await resolve={bootcamps}>
-        {/*() => {} called when promise is resolved (i.e bootcamps arrive*/}
-        {() => <BootcampsList />}
-      </Await>
-    </Suspense>
-  );
+  return <BootcampsList bootcamps={bootcamps} />;
 };
 
 export default BootcampsPage;
@@ -32,17 +19,10 @@ async function loadBootcamps() {
   } else {
     const responseData = await response.json();
     const bootcamps = responseData.data;
-    // add all bootcamps to bootcamp-context
-    for (let bootcamp of bootcamps) {
-      bootcampContext.addBootcamp(bootcamp);
-    }
-    return responseData.data;
+    return bootcamps;
   }
 }
 
 export function loader() {
-  // show page before data is fully fetched (defer data fetching)
-  return defer({
-    bootcamps: loadBootcamps(),
-  });
+  return loadBootcamps();
 }

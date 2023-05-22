@@ -1,0 +1,15 @@
+.coursesContainer {
+  padding: 0rem 1rem;
+  background-color: #272727;
+  margin: 1rem 0rem;
+  box-shadow: 0 30px 40px rgba(168, 168, 168, 0.715);
+  border-radius: 5px;
+  width: 60%;
+  text-align: center;
+  color: #f7f7f7;
+}
+
+.coursesContainer h2 {
+  color: #f7f7f7;
+  text-align: center;
+}
