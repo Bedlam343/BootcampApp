@@ -4,7 +4,7 @@ import Card from "../util/UI/Card";
 import classes from "./SignupForm.module.css";
 import TextInput from "../util/UI/TextInput";
 import Button from "../util/UI/Button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Background from "../util/UI/Background";
 
 const isEmpty = (str) => {
@@ -25,9 +25,15 @@ const SignupForm = () => {
   const submit = useSubmit();
 
   const actionData = useActionData();
-  if (actionData && !error) {
-    setError(`${actionData.error}!`);
-  }
+  useEffect(() => {
+    if (actionData) {
+      let message = actionData.error;
+      if (actionData.mongoErrorCode === 11000) {
+        message = "Email already in use.";
+      }
+      setError(message);
+    }
+  }, [actionData]);
 
   const removeErrorMessageHandler = () => {
     if (!error) {
