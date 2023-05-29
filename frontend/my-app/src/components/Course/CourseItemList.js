@@ -14,7 +14,8 @@ const CourseItemList = (props) => {
 
   return (
     <div className={classes.coursesContainer}>
-      <h3>Bootcamp Courses</h3>
+      {courses.length === 0 && <h3>Bootcamp contains no Courses</h3>}
+      {courses.length > 0 && <h3>Bootcamp Courses</h3>}
       {courses.map((course) => (
         <CourseItem
           key={course._id}

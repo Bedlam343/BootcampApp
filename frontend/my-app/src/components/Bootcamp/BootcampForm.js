@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { Form, useNavigate } from "react-router-dom";
+import { Form, useNavigate, useSubmit } from "react-router-dom";
 
 import classes from "./BootcampForm.module.css";
-import Button from "../util/Button";
-import CourseItemList from "./CourseItemList";
-import CourseForm from "./CourseForm";
-
-// SAVE NEW BOOTCAMP TO THE DATABASE
+import Button from "../../util/UI/Button";
+import CourseItemList from "../Course/CourseItemList";
+import CourseForm from "../Course/CourseForm";
 
 const BootcampForm = ({ bootcamp, courses }) => {
+  courses = courses ? courses : [];
   const [isAddingCourse, setIsAddingCourse] = useState(false);
-  const [coursesList, setCoursesList] = useState(courses ? courses : []);
   const navigate = useNavigate();
+  const submit = useSubmit();
 
   const title = bootcamp ? "Edit Bootcamp" : "Create New Bootcamp";
 
@@ -24,46 +23,41 @@ const BootcampForm = ({ bootcamp, courses }) => {
     bootcamp = {};
   }
 
-  const saveHandler = () => {
-    
-  }
-
   const cancelHandler = () => {
     navigate("..");
   };
 
-  const newCourseHandler = () => {
-    setIsAddingCourse(true);
-  };
-
   const addNewCourseHandler = (newCourse) => {
-    setCoursesList((prevCoursesList) => [newCourse, ...prevCoursesList]);
+    const formData = new FormData();
+    formData.append("method", "POST_COURSE");
+    formData.append("course", JSON.stringify(newCourse));
+    submit(formData, { method: "post" });
     setIsAddingCourse(false);
   };
 
   const updateCourseHandler = (updatedCourse) => {
-    setCoursesList((prevCoursesList) => {
-      let newCoursesList = [];
-      for (let course of prevCoursesList) {
-        if (course._id === updatedCourse._id) {
-          newCoursesList.push(updatedCourse);
-        }
-        else {
-          newCoursesList.push(course);
-        }
-      }
-      return newCoursesList;
-    });
-  }
+    const formData = new FormData();
+    formData.append("method", "UPDATE_COURSE");
+    formData.append("course", JSON.stringify(updatedCourse));
+    submit(formData, { method: "post" });
+  };
 
   const discardNewCourseHandler = () => {
     setIsAddingCourse(false);
   };
 
   const removeCourseHandler = (courseId) => {
-    setCoursesList((prevCoursesList) =>
-      prevCoursesList.filter((course) => course._id !== courseId)
-    );
+    const formData = new FormData();
+    formData.append("method", "DELETE_COURSE");
+    formData.append("courseId", courseId);
+    submit(formData, { method: "post" });
+  };
+
+  const toggleAddCourseHandler = () => {
+    if (isAddingCourse) {
+      return;
+    }
+    setIsAddingCourse(true);
   };
 
   return (
@@ -132,7 +126,7 @@ const BootcampForm = ({ bootcamp, courses }) => {
               required
             ></input>
           </div>
-          <div className={classes.field}>
+          {/* <div className={classes.field}>
             <label htmlFor="careers">Careers (separate by commas):</label>
             <input
               type="text"
@@ -141,7 +135,7 @@ const BootcampForm = ({ bootcamp, courses }) => {
               defaultValue={careers}
               required
             ></input>
-          </div>
+          </div> */}
 
           <div className={classes.checkboxField}>
             <label htmlFor="housing">Housing</label>
@@ -183,33 +177,29 @@ const BootcampForm = ({ bootcamp, courses }) => {
             <Button type="button" onClick={cancelHandler}>
               Cancel
             </Button>
-            <Button type="button" onClick={saveHandler}>Save</Button>
+            <Button type="submit">Save</Button>
           </div>
           <br></br>
-          <div className={classes.courseButton}>
-            <Button
-              type="button"
-              disabled={isAddingCourse}
-              onClick={newCourseHandler}
-            >
-              New Course &nbsp;+
-            </Button>
-          </div>
-          {isAddingCourse && (
-            <CourseForm
-              new={true}
-              onAdd={addNewCourseHandler}
-              onDiscard={discardNewCourseHandler}
-            />
-          )}
         </Form>
       </div>
-      <CourseItemList
-        courses={coursesList}
-        onUpdate={updateCourseHandler}
-        onRemove={removeCourseHandler}
-        editable={true}
-      />
+      {courses.length > 0 && (
+        <Button onClick={toggleAddCourseHandler}>Add Course &nbsp; +</Button>
+      )}
+      {isAddingCourse && (
+        <CourseForm
+          onDiscard={discardNewCourseHandler}
+          onAdd={addNewCourseHandler}
+          new={true}
+        />
+      )}
+      {courses.length > 0 && (
+        <CourseItemList
+          onUpdate={updateCourseHandler}
+          onRemove={removeCourseHandler}
+          courses={courses}
+          editable={true}
+        />
+      )}
     </div>
   );
 };

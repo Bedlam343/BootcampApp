@@ -15,7 +15,12 @@ import BootcampDetailLayout, {
   loader as bootcampLoader,
 } from "./pages/BootcampDetailRoot";
 import AuthContextLayout from "./store/AuthContextLayout";
-import EditBootcampPage from "./pages/EditBootcamp";
+import EditBootcampPage, { action as editAction } from "./pages/EditBootcamp";
+import AddCoursesPage, {
+  loader as coursesLoader,
+  action as coursesAction,
+} from "./pages/AddCourses";
+import SignupPage, { action as signupAction } from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +56,13 @@ const router = createBrowserRouter([
                   {
                     path: "edit",
                     element: <EditBootcampPage />,
+                    action: editAction,
+                  },
+                  {
+                    path: "new-bootcamp-courses",
+                    element: <AddCoursesPage />,
+                    loader: coursesLoader,
+                    action: coursesAction,
                   },
                 ],
               },
@@ -65,6 +77,11 @@ const router = createBrowserRouter([
             path: "login",
             element: <LoginPage />,
             action: authAction,
+          },
+          {
+            path: "signup",
+            element: <SignupPage />,
+            action: signupAction,
           },
           {
             path: "logout",

@@ -4,20 +4,20 @@ import AuthContext from "./auth-context";
 
 const defaultAuthState = {
   isLoggedIn: false,
-  userId: "",
-  userName: "",
-  userEmail: "",
-  userRole: "",
+  _id: "",
+  name: "",
+  email: "",
+  role: "",
 };
 
 const authReducer = (state, action) => {
   if (action.type === "LOGIN") {
     const newState = {
       isLoggedIn: true,
-      userId: action.userData._id,
-      userName: action.userData.name,
-      userEmail: action.userData.email,
-      userRole: action.userData.role,
+      _id: action.userData._id,
+      name: action.userData.name,
+      email: action.userData.email,
+      role: action.userData.role,
     };
     return newState;
   }
@@ -44,12 +44,11 @@ const AuthProvider = (props) => {
 
   const authContext = {
     isLoggedIn: authState.isLoggedIn,
-    userId: authState.userId,
-    userName: authState.userName,
-    userEmail: authState.userEmail,
-    userRole: authState.userRole,
+    _id: authState._id,
+    name: authState.name,
+    email: authState.email,
+    role: authState.role,
     login: loginUser,
-
     logout: logoutUser,
   };
 

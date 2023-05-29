@@ -1,4 +1,4 @@
-import { Outlet, defer, json } from "react-router-dom";
+import { Outlet, json } from "react-router-dom";
 
 const BootcampDetailLayout = () => {
   return (
@@ -10,7 +10,8 @@ const BootcampDetailLayout = () => {
 
 async function loadBootcamp(bootcampId) {
   const response = await fetch(
-    "http://localhost:5000/api/v1/bootcamps/" + bootcampId
+    "https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps/" +
+      bootcampId
   );
 
   if (!response.ok) {
@@ -23,7 +24,9 @@ async function loadBootcamp(bootcampId) {
 
 async function loadCourses(bootcampId) {
   const response = await fetch(
-    "http://localhost:5000/api/v1/bootcamps/" + bootcampId + "/courses"
+    "https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps/" +
+      bootcampId +
+      "/courses"
   );
 
   if (!response.ok) {
@@ -41,10 +44,10 @@ async function loadCourses(bootcampId) {
 // get id of bootcamp from url
 export async function loader({ params }) {
   const bootcampId = params.bootcampId;
-  return defer({
+  return {
     bootcamp: await loadBootcamp(bootcampId),
     courses: await loadCourses(bootcampId),
-  });
+  };
 }
 
 export default BootcampDetailLayout;

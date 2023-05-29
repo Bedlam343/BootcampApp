@@ -1,5 +1,5 @@
 import { json, redirect } from "react-router-dom";
-import BootcampForm from "../components/BootcampForm";
+import BootcampForm from "../components/Bootcamp/BootcampForm";
 
 const NewBootcampPage = () => {
   return <BootcampForm />;
@@ -18,23 +18,26 @@ export async function action({ request }) {
     phone: formData.get("phone"),
     email: formData.get("email"),
     address: formData.get("address"),
-    careers: formData.get("careers").split(", "),
+    // careers: formData.get("careers").split(", "),
     housing: formData.get("housing") === "on",
-    jobAssistance: formData.get("jobAssitance") === "on",
+    jobAssistance: formData.get("jobAssistance") === "on",
     jobGuarantee: formData.get("jobGuarantee") === "on",
     acceptGi: formData.get("acceptGi") === "on",
   };
 
   const token = localStorage.getItem("token");
   const authorization = `Bearer ${token}`;
-  let response = await fetch("http://localhost:5000/api/v1/bootcamps", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: authorization,
-    },
-    body: JSON.stringify(bootcampData),
-  });
+  let response = await fetch(
+    "https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: authorization,
+      },
+      body: JSON.stringify(bootcampData),
+    }
+  );
 
   if (!response.ok) {
     throw json({ message: "Could not add bootcamp" }, { status: 500 });
@@ -44,5 +47,7 @@ export async function action({ request }) {
     return response;
   }
 
-  return redirect("/bootcamps");
+  const responseData = await response.json();
+
+  return redirect(`/bootcamps/${responseData.data._id}/new-bootcamp-courses`);
 }

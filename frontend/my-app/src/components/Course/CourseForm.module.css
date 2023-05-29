@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: left;
   text-align: left;
+  width: auto;
 }
 
 .field,
@@ -23,7 +24,7 @@
 
 .field input {
   outline: none;
-  width: 80%;
+  width: 97%;
   padding: 0.5rem;
   border-radius: 5px;
   border: 1px solid #ccc;

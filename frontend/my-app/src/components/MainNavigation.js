@@ -2,14 +2,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 // import DropDown from "react-dropdown";
 import "react-dropdown/style.css";
 
+// import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import classes from "./MainNavigation.module.css";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
 
 const MainNavigation = () => {
   const authContext = useContext(AuthContext);
-  const isLoggedIn = authContext.isLoggedIn;
-  const isAdmin = authContext.userRole === "admin";
+  const isAdmin = authContext.role === "admin";
 
   const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ const MainNavigation = () => {
           )}
         </select>
 
-        {!isLoggedIn && (
+        {!authContext.isLoggedIn && (
           <NavLink
             to="/login"
             className={({ isActive }) =>
@@ -60,7 +60,9 @@ const MainNavigation = () => {
           </NavLink>
         )}
 
-        {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
+        {authContext.isLoggedIn && (
+          <button onClick={logoutHandler}>Logout</button>
+        )}
       </nav>
     </div>
   );

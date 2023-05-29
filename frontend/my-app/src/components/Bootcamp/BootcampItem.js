@@ -1,17 +1,17 @@
 import { useNavigate, useSubmit } from "react-router-dom";
-import Button from "../util/Button";
-import AuthContext from "../store/auth-context";
+import Button from "../../util/UI/Button";
+import AuthContext from "../../store/auth-context";
 
 import classes from "./BootcampItem.module.css";
 import { useContext } from "react";
-import CourseItemList from "./CourseItemList";
+import CourseItemList from "../Course/CourseItemList";
 
 const BootcampItem = ({ bootcamp, courses }) => {
   const authContext = useContext(AuthContext);
   const submit = useSubmit();
   const navigate = useNavigate();
 
-  const isAdmin = authContext.userRole === "admin";
+  const isAdmin = authContext.role === "admin";
 
   const additionalFeatures =
     bootcamp.housing ||
@@ -49,12 +49,12 @@ const BootcampItem = ({ bootcamp, courses }) => {
           <p>Average Cost: ${bootcamp.averageCost}</p>
         </div>
         <p>{bootcamp.description}</p>
-        <section>
+        {/* <section>
           <h3>Careers:</h3>
           {bootcamp.careers.map((career) => (
             <p key={career}>{career}</p>
           ))}
-        </section>
+        </section> */}
 
         {additionalFeatures && (
           <section>

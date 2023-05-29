@@ -1,5 +1,7 @@
+import WelcomePage from "../components/WelcomePage";
+
 const HomePage = () => {
-  console.log("HOMEPAGE");
+  return <WelcomePage />
 };
 
 export default HomePage;

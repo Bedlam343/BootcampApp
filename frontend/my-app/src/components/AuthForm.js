@@ -1,7 +1,7 @@
-import { Form, useActionData } from "react-router-dom";
+import { Form, NavLink, useActionData } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
-import Button from "../util/Button";
+import Button from "../util/UI/Button";
 
 const AuthForm = () => {
   const actionData = useActionData();
@@ -25,7 +25,12 @@ const AuthForm = () => {
           <p className={classes.loginError}>{actionData.error + "!"}</p>
         )}
       </Form>
-      <p>Forgot Password?</p>
+      <NavLink to="/signup">Sign up</NavLink>
+      <div style={{ textAlign: "center" }}>
+        <p>*Admin Credentials (for full-functionality):</p>
+        <p>admin@gmail.com</p>
+        <p>Password: 123456</p>
+      </div>
     </div>
   );
 };

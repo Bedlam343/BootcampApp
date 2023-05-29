@@ -1,8 +1,18 @@
 import { useRef } from "react";
 
 import classes from "./CourseForm.module.css";
-import Button from "../util/Button";
-import { Form } from "react-router-dom";
+import Button from "../../util/UI/Button";
+
+const validSkill = (skill) => {
+  if (
+    skill !== "beginner" &&
+    skill !== "intermediate" &&
+    skill !== "advanced"
+  ) {
+    return false;
+  }
+  return true;
+};
 
 const CourseForm = (props) => {
   const courseTitleRef = useRef();
@@ -15,6 +25,11 @@ const CourseForm = (props) => {
   const course = props.course ? props.course : {};
 
   const addCourseHandler = () => {
+    if (!validSkill(courseMinSkillRef.current.value)) {
+      window.alert("Please provide a valid minimum skill level.");
+      courseMinSkillRef.current.focus();
+      return;
+    }
     const newCourse = {
       _id: `${courseTitleRef.current}_${Date.now()}`,
       title: courseTitleRef.current.value,
@@ -49,7 +64,7 @@ const CourseForm = (props) => {
   };
 
   return (
-    <Form method="post" className={classes.form}>
+    <div method="post" className={classes.form}>
       <div className={classes.field}>
         <label htmlFor="courseTitle">Title:</label>
         <input
@@ -95,7 +110,9 @@ const CourseForm = (props) => {
         ></input>
       </div>
       <div className={classes.field}>
-        <label htmlFor="courseMinSkill">Minimum Skill Level:</label>
+        <label htmlFor="courseMinSkill">
+          Minimum Skill Level (beginner, intermediate, advanced):
+        </label>
         <input
           ref={courseMinSkillRef}
           type="text"
@@ -117,12 +134,12 @@ const CourseForm = (props) => {
       </div>
       <div className={classes.formButtons}>
         <Button onClick={discardCourseHandler} type="button">
-          Discard
+          Cancel
         </Button>
         {props.new && <Button onClick={addCourseHandler}>Add</Button>}
         {!props.new && <Button onClick={updateCourseHandler}>Update</Button>}
       </div>
-    </Form>
+    </div>
   );
 };
 

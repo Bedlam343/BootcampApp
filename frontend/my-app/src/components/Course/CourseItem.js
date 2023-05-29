@@ -1,5 +1,5 @@
 import classes from "./CourseItem.module.css";
-import Button from "../util/Button";
+import Button from "../../util/UI/Button";
 import { useState } from "react";
 import CourseForm from "./CourseForm";
 
