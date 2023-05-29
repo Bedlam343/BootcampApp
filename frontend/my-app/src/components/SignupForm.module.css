@@ -1,5 +1,7 @@
 .container {
   width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .form {
@@ -8,6 +10,30 @@
   align-items: center;
 }
 
-.form p {
+.form .error {
+  margin-top: 2rem;
   color: rgb(240, 56, 56);
+}
+
+.checkboxes {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.round {
+  width: 1.3em;
+  height: 1.3em;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid grey;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.round:checked {
+  background: #272727;
 }

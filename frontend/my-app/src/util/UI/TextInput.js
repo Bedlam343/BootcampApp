@@ -10,6 +10,7 @@ const TextInput = (props) => {
         id={props.id}
         name={props.name}
         ref={props._ref}
+        onFocus={props.onFocus}
         required={props.required}
       ></input>
     </div>

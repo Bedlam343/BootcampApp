@@ -1,1 +1,1 @@
-// put constants (like website names here)
+export const WEBSITE = "https://mystic-column-387705.wl.r.appspot.com";

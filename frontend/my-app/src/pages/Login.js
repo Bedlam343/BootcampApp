@@ -3,6 +3,7 @@ import { json, redirect } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
+import { WEBSITE } from "../constants";
 
 let authContext;
 
@@ -22,16 +23,13 @@ export async function action({ request }) {
   };
 
   // send request to the backend
-  let response = await fetch(
-    "https://mystic-column-387705.wl.r.appspot.com/api/v1/auth/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(authData),
-    }
-  );
+  let response = await fetch(`${WEBSITE}/api/v1/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(authData),
+  });
 
   // Invalid credentials
   if (response.status === 401) {
