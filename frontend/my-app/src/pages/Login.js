@@ -3,7 +3,7 @@ import { json, redirect } from "react-router-dom";
 import AuthForm from "../components/AuthForm";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
-import { WEBSITE } from "../constants";
+import { BACKEND_URL } from "../constants";
 
 let authContext;
 
@@ -23,7 +23,7 @@ export async function action({ request }) {
   };
 
   // send request to the backend
-  let response = await fetch(`${WEBSITE}/api/v1/auth/login`, {
+  let response = await fetch(`${BACKEND_URL}/api/v1/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,16 +53,13 @@ export async function action({ request }) {
 
   const authorization = "Bearer " + token;
   // get user information
-  response = await fetch(
-    "https://mystic-column-387705.wl.r.appspot.com/api/v1/auth/me",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: authorization,
-      },
-    }
-  );
+  response = await fetch(`${BACKEND_URL}/api/v1/auth/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: authorization,
+    },
+  });
 
   if (!response.ok) {
     throw json(

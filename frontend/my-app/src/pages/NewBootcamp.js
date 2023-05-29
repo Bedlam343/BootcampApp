@@ -1,5 +1,6 @@
 import { json, redirect } from "react-router-dom";
 import BootcampForm from "../components/Bootcamp/BootcampForm";
+import { BACKEND_URL } from "../constants";
 
 const NewBootcampPage = () => {
   return <BootcampForm />;
@@ -27,17 +28,14 @@ export async function action({ request }) {
 
   const token = localStorage.getItem("token");
   const authorization = `Bearer ${token}`;
-  let response = await fetch(
-    "https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: authorization,
-      },
-      body: JSON.stringify(bootcampData),
-    }
-  );
+  let response = await fetch(`${BACKEND_URL}/api/v1/bootcamps`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: authorization,
+    },
+    body: JSON.stringify(bootcampData),
+  });
 
   if (!response.ok) {
     throw json({ message: "Could not add bootcamp" }, { status: 500 });

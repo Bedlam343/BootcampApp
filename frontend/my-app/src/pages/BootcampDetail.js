@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Await, json, redirect, useRouteLoaderData } from "react-router-dom";
 import BootcampItem from "../components/Bootcamp/BootcampItem";
+import { BACKEND_URL } from "../constants";
 
 const BootcampDetailPage = () => {
   const bootcamp = useRouteLoaderData("bootcampDetail");
@@ -30,8 +31,7 @@ export async function action({ request }) {
   const authorization = "Bearer " + userToken;
 
   const response = await fetch(
-    "https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps/" +
-      bootcampId,
+    `${BACKEND_URL}/api/v1/bootcamps/${bootcampId}`,
     {
       method: "delete",
       headers: {

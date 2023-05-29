@@ -1,5 +1,6 @@
 import { json, redirect, useRouteLoaderData } from "react-router-dom";
 import BootcampForm from "../components/Bootcamp/BootcampForm";
+import { BACKEND_URL } from "../constants";
 
 const EditBootcampPage = () => {
   const bootcamp = useRouteLoaderData("bootcampDetail");
@@ -34,17 +35,14 @@ export async function action({ params, request }) {
       jobGuarantee: formData.get("jobGuarantee") === "on",
       acceptGi: formData.get("acceptGi") === "on",
     };
-    response = await fetch(
-      `https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps/${bootcampId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: authorization,
-        },
-        body: JSON.stringify(bootcamp),
-      }
-    );
+    response = await fetch(`${BACKEND_URL}/api/v1/bootcamps/${bootcampId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: authorization,
+      },
+      body: JSON.stringify(bootcamp),
+    });
     if (!response.ok) {
       throw json({ message: "Could not update bootcamp" }, { status: 500 });
     }
@@ -63,7 +61,7 @@ export async function action({ params, request }) {
       scholarshipsAvailable: course.scholarshipsAvailable,
     };
     response = await fetch(
-      `https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps/${bootcampId}/courses`,
+      `${BACKEND_URL}/api/v1/bootcamps/${bootcampId}/courses`,
       {
         method: "POST",
         headers: {
@@ -74,22 +72,17 @@ export async function action({ params, request }) {
       }
     );
   } else if (formData.get("method") === "UPDATE_COURSE") {
-    response = await fetch(
-      `https://mystic-column-387705.wl.r.appspot.com/api/v1/courses/${course._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: authorization,
-        },
-        body: JSON.stringify(course),
-      }
-    );
+    response = await fetch(`${BACKEND_URL}/api/v1/courses/${course._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: authorization,
+      },
+      body: JSON.stringify(course),
+    });
   } else if (formData.get("method") === "DELETE_COURSE") {
     response = await fetch(
-      `https://mystic-column-387705.wl.r.appspot.com/api/v1/courses/${formData.get(
-        "courseId"
-      )}`,
+      `${BACKEND_URL}/api/v1/courses/${formData.get("courseId")}`,
       {
         method: "DELETE",
         headers: {

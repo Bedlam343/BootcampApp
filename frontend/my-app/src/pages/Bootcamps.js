@@ -1,5 +1,6 @@
 import { json, useLoaderData } from "react-router-dom";
 import BootcampsList from "../components/Bootcamp/BootcampsList";
+import { BACKEND_URL } from "../constants";
 
 const BootcampsPage = () => {
   // useLoaderData() gets access to the "closest" loader data
@@ -11,9 +12,7 @@ const BootcampsPage = () => {
 export default BootcampsPage;
 
 export async function loader() {
-  const response = await fetch(
-    "https://mystic-column-387705.wl.r.appspot.com/api/v1/bootcamps"
-  );
+  const response = await fetch(`${BACKEND_URL}/api/v1/bootcamps`);
 
   if (!response.ok) {
     throw json({ message: "Could not fetch bootcamps." }, { status: 500 });
