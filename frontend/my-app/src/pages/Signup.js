@@ -1,5 +1,5 @@
 import { json, redirect } from "react-router-dom";
-import SignupForm from "../components/SignupForm";
+import SignupForm from "../components/User/SignupForm";
 import { BACKEND_URL } from "../constants";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";

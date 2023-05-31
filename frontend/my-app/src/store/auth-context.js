@@ -3,7 +3,8 @@ import React from "react";
 const AuthContext = React.createContext({
   isLoggedIn: false,
   _id: "",
-  name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   role: "",
   login: (userData) => {},

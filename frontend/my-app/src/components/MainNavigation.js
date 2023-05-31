@@ -9,7 +9,8 @@ import AuthContext from "../store/auth-context";
 
 const MainNavigation = () => {
   const authContext = useContext(AuthContext);
-  const isAdmin = authContext.role === "admin";
+  const isNotUser =
+    authContext.role === "admin" || authContext.role === "publisher";
 
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ const MainNavigation = () => {
             Bootcamps
           </option>
           <option value="/bootcamps">All Bootcamps</option>
-          {isAdmin && (
+          {isNotUser && (
             <option value="/bootcamps/new">Create New Bootcamp</option>
           )}
         </select>

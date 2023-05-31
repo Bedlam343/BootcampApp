@@ -1,6 +1,6 @@
 import { json, redirect } from "react-router-dom";
 
-import AuthForm from "../components/AuthForm";
+import AuthForm from "../components/User/AuthForm";
 import { useContext } from "react";
 import AuthContext from "../store/auth-context";
 import { BACKEND_URL } from "../constants";
@@ -78,5 +78,5 @@ export async function action({ request }) {
 
   authContext.login(userData);
 
-  return redirect("/");
+  return redirect("/bootcamps");
 }

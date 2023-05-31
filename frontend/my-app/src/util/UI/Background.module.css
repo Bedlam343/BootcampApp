@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 4rem;
-  padding: 2rem;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
+  background: rgb(241, 240, 240);
 }

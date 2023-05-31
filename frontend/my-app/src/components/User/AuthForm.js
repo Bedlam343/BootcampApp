@@ -1,7 +1,7 @@
 import { Form, NavLink, useActionData } from "react-router-dom";
 
 import classes from "./AuthForm.module.css";
-import Button from "../util/UI/Button";
+import Button from "../../util/UI/Button";
 
 const AuthForm = () => {
   const actionData = useActionData();

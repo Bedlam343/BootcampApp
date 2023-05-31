@@ -1,0 +1,31 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: first baseline;
+  margin-top: -0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+.heading p {
+  font-size: 14px;
+  text-decoration: 1.5px underline solid #0064e6;
+}
+
+.heading p {
+  cursor: pointer;
+}
+
+.listItem .avgCost {
+  font-size: 14px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.owner {
+  font-weight: 500;
+  color: rgb(255, 89, 63);
+}
