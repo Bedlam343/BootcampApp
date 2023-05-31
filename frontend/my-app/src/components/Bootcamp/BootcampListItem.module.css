@@ -15,6 +15,10 @@
   cursor: pointer;
 }
 
+.listItem {
+  padding: 1rem;
+}
+
 .listItem .avgCost {
   font-size: 14px;
 }
